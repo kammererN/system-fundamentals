@@ -1,3 +1,9 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// Author: Nicholas Kammerer
+// Date: 2024-02-10
+/* 
+ *   ICSI 333 Lab 02. Exercise in pointers. 
+ */
 #include <stdio.h>
 
 int main ()

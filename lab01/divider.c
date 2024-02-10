@@ -1,3 +1,10 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// Author: Nicholas Kammerer
+// Date: 2024-02-10
+/* 
+ * ICSI 333 Lab 01. Divide and modulo two integers; return results. 
+ *  
+ */
 #include  <stdio.h>
 int main() 
 {
