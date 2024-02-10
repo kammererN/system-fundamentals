@@ -10,25 +10,25 @@
 
 /* Manual implementation of strlen() */
 size_t mstrlen (const char *string) {
-    const char *pstring = string;
+	const char *pstring = string;
 
-    while (*pstring != '\0') {
-        pstring++;
-    }
-    return pstring - string;
+        while (*pstring != '\0') {
+                pstring++;
+        }
+        return pstring - string;
 }
 
 
 int main () {
-    char string[STRING_SIZE];
-    long length;
+        char string[STRING_SIZE];
+        long length;
 
-    printf("Enter a string: ");
-    scanf("%s", &string);
-    
-    length = mstrlen(string);
+        printf("Enter a string: ");
+        scanf("%s", &string);
 
-    printf("String \"%s\" has length of %1d.\n", string, length); 
+        length = mstrlen(string);
+
+        printf("String \"%s\" has length of %1d.\n", string, length); 
     
-    return 0;
+        return 0;
 }
