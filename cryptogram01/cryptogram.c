@@ -6,13 +6,20 @@
  */
 
 #include <stdio.h>
-#pragma endregion
+#define STRING_LENGTH 128 
 
-const char getString() 
+char puzzle[STRING_LENGTH];
+
+const char getPuzzle() 
 {
-	const char string[] = "";
+	const char string[STRING_LENGTH] = "Welcome to Cryptogram 01!";
 
-	return
+	return *string;
+}
+
+void initialization()
+{
+	puzzle = *getPuzzle();
 }
 
 
