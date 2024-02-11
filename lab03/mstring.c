@@ -8,6 +8,7 @@
 #include <stdio.h>
 #define STRING_SIZE 64 // size of memory allocated to string array
 
+
 /* Manual implementation of strlen() */
 size_t mstrlen (const char *string) {
 	const char *pstring = string;
