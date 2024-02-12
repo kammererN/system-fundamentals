@@ -6,16 +6,32 @@
  */
 
 #include <stdio.h>
-#define STRING_LENGTH 128 
 
+#define STRING_LENGTH 128 
+#define DEFAULT_STRING "Hey there ;)"
+#define STARTUP_PROMPT "Enter a letter and then the letter to replace it with or ':q' to quit."
+
+// Function declarations
+void initialization();
+void gameLoop();
+void teardown();
+char getPuzzle(); 
+char acceptInput();
+void updateState();
+
+// Universal vars
 char puzzle[STRING_LENGTH];
 
-const char getPuzzle() 
-{
-	const char string[STRING_LENGTH] = "Welcome to Cryptogram 01!";
 
-	return *string;
+/* Main function */
+int main () 
+{
+	initialization();
+	gameLoop();
+	teardown();
+	return 0;
 }
+
 
 void initialization()
 {
@@ -23,10 +39,35 @@ void initialization()
 }
 
 
-int main () 
+void gameLoop()
 {
-	//initialization();
-	//gameloop();
-	//teardown();
-	return 0;
+
 }
+
+
+void teardown()
+{
+
+}
+
+
+char getPuzzle()
+{
+	const char string[STRING_LENGTH] = DEFAULT_STRING;
+
+	return *string;
+}
+
+
+char acceptInput()
+{
+	printf(STARTUP_PROMPT);
+	fgets();
+}
+
+
+void updateState(char *userInput)
+{
+
+}
+
