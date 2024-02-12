@@ -10,6 +10,7 @@
 #define STRING_LENGTH 128 
 #define DEFAULT_STRING "Hey there ;)"
 #define STARTUP_PROMPT "Enter a letter and then the letter to replace it with or ':q' to quit."
+#define EXIT_PROMPT "All Done"
 
 // Function declarations
 void initialization();
@@ -17,7 +18,7 @@ void gameLoop();
 void teardown();
 char getPuzzle(); 
 char acceptInput();
-void updateState();
+void updateState(char *userInputq);
 void displayWorld();
 
 // Universal vars
@@ -48,38 +49,41 @@ void gameLoop()
 
 void teardown()
 {
-
+	printf(EXIT_PROMPT);
 }
 
 
 char getPuzzle()
 {
 	const char string[STRING_LENGTH] = DEFAULT_STRING;
-
 	return *string;
 }
 
 
 char acceptInput()
 {
+	char userInput[STRING_LENGTH];
+
 	printf(STARTUP_PROMPT);
-	fgets();
+	fgets(&userInput, STRING_LENGTH, stdin);
+	return *userInput;
 }
 
 
 bool updateState(char *userInput)
 {
 	char line[STRING_LENGTH];
+
 	if (*userInput != NULL || ':q') {
 		
 		return true;
 	} else {
-		line = 
+		displayWorld();
 		return false;
 	}
 }
 
 void displayWorld()
 {
-	
+	printf("");
 }

@@ -26,10 +26,7 @@ int main () {
 
         printf("Enter a string: ");
         scanf("%s", &string);
-
         length = mstrlen(string);
-
         printf("String \"%s\" has length of %1d.\n", string, length); 
-    
         return 0;
 }
