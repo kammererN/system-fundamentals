@@ -10,9 +10,9 @@
 
 
 /* Manual implementation of strlen() */
-size_t mstrlen (const char *string) {
-	const char *pstring = string;
-
+size_t mstrlen (char *string) {
+	char *pstring = string;
+        
         while (*pstring != '\0') {
                 pstring++;
         }
