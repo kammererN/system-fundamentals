@@ -18,6 +18,7 @@ void teardown();
 char getPuzzle(); 
 char acceptInput();
 void updateState();
+void displayWorld();
 
 // Universal vars
 char puzzle[STRING_LENGTH];
@@ -66,8 +67,19 @@ char acceptInput()
 }
 
 
-void updateState(char *userInput)
+bool updateState(char *userInput)
 {
-
+	char line[STRING_LENGTH];
+	if (*userInput != NULL || ':q') {
+		
+		return true;
+	} else {
+		line = 
+		return false;
+	}
 }
 
+void displayWorld()
+{
+	
+}
