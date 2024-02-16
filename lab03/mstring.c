@@ -6,10 +6,12 @@
  */
 
 #include <stdio.h>
+#include <string.h>
 #define STRING_SIZE 64 // size of memory allocated to string array
 
 
 /* Manual implementation of strlen() */
+// "Calculate the length of the string (without using standard functions)."
 size_t mstrlen (char *string) {
 	char *pstring = string;
         
@@ -22,11 +24,16 @@ size_t mstrlen (char *string) {
 
 int main () {
         char string[STRING_SIZE];
-        long length;
+        long length, standardLength;
 
         printf("Enter a string: ");
+        // "Using scanf(), read a string from the user."
         scanf("%s", &string);
         length = mstrlen(string);
-        printf("String \"%s\" has length of %1d.\n", string, length); 
+        standardLength = strlen(string);
+        // "Print your calculated length of the string, "
+        printf("Calculated length of string \'%s\': %1d\n", string, length); 
+        // "followed by the length produced by the standard functions." 
+        printf("Standard function returns length: %1d\n", standardLength);
         return 0;
 }
