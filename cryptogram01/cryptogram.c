@@ -73,8 +73,7 @@ char *acceptInput()
 	static char input[MAX_INPUT];
 	printf(STARTUP_PROMPT);
 	fgets(input, MAX_INPUT, stdin);
-	// STRIP INPUT OF "\n"
-	
+	input[strcspn(input, "\n")] = 0;  // Remove '/n' if present
 	return input;
 }
 
