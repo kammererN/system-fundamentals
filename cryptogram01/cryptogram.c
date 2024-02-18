@@ -6,84 +6,86 @@
  */
 
 #include <stdio.h>
+#include <stdbool.h>
+#include <string.h>
 
-#define STRING_LENGTH 128 
-#define DEFAULT_STRING "Hey there ;)"
-#define STARTUP_PROMPT "Enter a letter and then the letter to replace it with or ':q' to quit."
+#define MAX_INPUT 128 
+#define DEFAULT_PUZZLE "Default puzzle string"
+#define STARTUP_PROMPT "Enter a letter and then the letter to replace it with or 'quit' to quit: "
 #define EXIT_PROMPT "All Done"
 
-// Function declarations
+// Global varss
+char *puzzle;
+
+// Function prototypes
 void initialization();
 void gameLoop();
-void teardown();
-char getPuzzle(); 
-char acceptInput();
-void updateState(char *userInputq);
+void tearDown();
+char *getPuzzle(); 
+char *acceptInput();
+void updateState(char *input);
 void displayWorld();
 
-// Universal vars
-char puzzle[STRING_LENGTH];
-
-
-/* Main function */
 int main () 
 {
 	initialization();
 	gameLoop();
-	teardown();
+	tearDown();
 	return 0;
 }
 
 
 void initialization()
 {
-	puzzle = *getPuzzle();
+	puzzle = getPuzzle();
 }
 
 
 void gameLoop()
 {
+	char *userInput
+	bool quit = false;
 
+	while (!quit) {
+		displayWorld(); 
+		userInput = acceptInput();
+		quit = updateState(userInput);
+	}
+	displayWorld();
 }
 
 
-void teardown()
+void tearDown()
 {
 	printf(EXIT_PROMPT);
 }
 
 
-char getPuzzle()
+char *getPuzzle()
 {
-	const char string[STRING_LENGTH] = DEFAULT_STRING;
-	return *string;
+	return DEFAULT_PUZZLE;
 }
 
 
-char acceptInput()
+char *acceptInput()
 {
-	char userInput[STRING_LENGTH];
-
+	static char input[MAX_INPUT];
 	printf(STARTUP_PROMPT);
-	fgets(&userInput, STRING_LENGTH, stdin);
-	return *userInput;
+	fgets(input, MAX_INPUT, stdin);
+	return input;
 }
 
 
-bool updateState(char *userInput)
+bool updateState(char *input)
 {
-	char line[STRING_LENGTH];
-
-	if (*userInput != NULL || ':q') {
-		
-		return true;
-	} else {
-		displayWorld();
-		return false;
+	if (strcmp(input, 'quit') == 0 || input == NULL) {
+		return true; // quits game
 	}
+
+	return false;
 }
 
 void displayWorld()
 {
-	printf("");
+	printf("Puzzle: %s\n", puzzle);
 }
