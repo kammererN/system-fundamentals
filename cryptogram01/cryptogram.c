@@ -11,6 +11,7 @@
 
 #define MAX_INPUT 128 
 #define DEFAULT_PUZZLE "Default puzzle string"
+#define QUIT "quit"
 #define STARTUP_PROMPT "Enter a letter and then the letter to replace it with or 'quit' to quit: "
 #define EXIT_PROMPT "All Done"
 
@@ -23,7 +24,7 @@ void gameLoop();
 void tearDown();
 char *getPuzzle(); 
 char *acceptInput();
-void updateState(char *input);
+bool updateState(char *input);
 void displayWorld();
 
 int main () 
@@ -43,7 +44,7 @@ void initialization()
 
 void gameLoop()
 {
-	char *userInput
+	char *userInput;
 	bool quit = false;
 
 	while (!quit) {
@@ -72,13 +73,15 @@ char *acceptInput()
 	static char input[MAX_INPUT];
 	printf(STARTUP_PROMPT);
 	fgets(input, MAX_INPUT, stdin);
+	// STRIP INPUT OF "\n"
+	
 	return input;
 }
 
 
 bool updateState(char *input)
 {
-	if (strcmp(input, 'quit') == 0 || input == NULL) {
+	if (strcmp(input, QUIT) == 0 || input == NULL) {
 		return true; // quits game
 	}
 
