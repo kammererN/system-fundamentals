@@ -2,7 +2,7 @@
 // Author: Nicholas Kammerer
 // Date: 2024-02-11
 /* 
- *   ICSI 333 Cryptogram 01. Game implementation in C. 
+ *   ICSI 333 Cryptogram 01 game implementation in C. 
  */
 
 #include <stdio.h>
@@ -10,12 +10,12 @@
 #include <string.h>
 
 #define MAX_INPUT 128 
-#define DEFAULT_PUZZLE "Default puzzle string"
+#define DEFAULT_PUZZLE "Hello! this is the puzzle :)"
 #define QUIT "quit"
 #define STARTUP_PROMPT "Enter a letter and then the letter to replace it with or 'quit' to quit: "
-#define EXIT_PROMPT "All Done"
+#define EXIT_PROMPT "All Done\n"
 
-// Global varss
+// Global var to hold puzzle
 char *puzzle;
 
 // Function prototypes
@@ -52,7 +52,6 @@ void gameLoop()
 		userInput = acceptInput();
 		quit = updateState(userInput);
 	}
-	displayWorld();
 }
 
 
@@ -73,7 +72,7 @@ char *acceptInput()
 	static char input[MAX_INPUT];
 	printf(STARTUP_PROMPT);
 	fgets(input, MAX_INPUT, stdin);
-	input[strcspn(input, "\n")] = 0;  // Remove '/n' if present
+	input[strcspn(input, "\n")] = 0;  // Remove "/n" if present
 	return input;
 }
 
