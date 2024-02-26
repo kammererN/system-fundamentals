@@ -5,7 +5,7 @@
  *   ICSI 333 Lab 04. File reader.   
  */
 #include <stdio.h>
-#include <string.h>
+~e#include <string.h>
 
 const size_t LINE_SIZE = 1024; 
 const size_t FILENAME_BUFFER_SIZE = 64;
