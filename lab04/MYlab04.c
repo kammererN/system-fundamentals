@@ -5,10 +5,9 @@
  *   ICSI 333 Lab 04. File reader.   
  */
 #include <stdio.h>
-#include <string.h>
 
-const size_t LINE_SIZE = 1024; 
-const size_t FILENAME_BUFFER_SIZE = 64;
+const size_t FILENAME_SIZE = 64;
+const size_t BUFFER_SIZE = 10000000; // accept buffer of up to 10 MB
 
 /*
 Write a program that reads a file, line by line, and prints every line on screen word by word
@@ -19,25 +18,31 @@ considered as a word). Submit your .c file
 int main(int argc, char* argv[])
 { 
 	FILE* file;
-	char* filename;
-	char line[LINE_SIZE];
-
-	filename = argv[1];
+	char* filename[FILENAME_SIZE];
+	char buffer[BUFFER_SIZE];
+	
+	// if no args presented, prompt user for filename	 
+	if (argc == 1) {
+		printf("Enter name of file: ");
+		scanf("%63s", filename);
+	} else {
+	*filename = argv[1];
+	}
+	// printf("%s\n", filename); // DEBUG
 
 	file = fopen(filename, "r");
+
+	// file error handling if filename is bad
 	if (file == NULL) {
 		perror("Error opening file");
-		return -1;
+		return 1;
 	}
 
-    	// read the file line by line
-	while (fgets(line, sizeof(line), file)) {
-		char *word = strtok(line, " \t\n\r");
-		while (word != NULL) {
-			printf("%s\n", word);
-			word = strtok(NULL, " \t\n\r");
-		}
+	while (fgets(buffer, sizeof(buffer), file)!= NULL) {
+		printf("%s", buffer);
 	}
+
 	fclose(file);
+	
 	return 0;
 }
