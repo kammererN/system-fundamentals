@@ -20,5 +20,40 @@ const char EXIT_PROMPT[] = "Exiting game.\n"
 
 // Global variables
 char encryptionKey[ALPHABET_SIZE];
+char playerKey[ALPHABET_SIZE];
+char *puzzle;
+char *encryptedPuzzle;
 
 // Prototypes
+void initialization();
+void gameLoop();
+void tearDown();
+char *getPuzzle();
+char *acceptInput();
+bool updateState(char *input);
+void displayWorld();
+void shuffle(char array[], int n);
+void encryptedPuzzle(const char *input, char **encryptedOutput);
+
+// Entrance to program
+int main() 
+{
+	initialization();
+	gameLoop();
+	tearDown();
+	return 0;
+}
+
+void initialization()
+{
+	srandom(time(NULL)); // set the seed
+	puzzle = strdup(getPuzzle())
+}
+void gameLoop();
+void tearDown();
+char *getPuzzle();
+char *acceptInput();
+bool updateState(char *input);
+void displayWorld();
+void shuffle(char array[], int n);
+void encryptedPuzzle(const char *input, char **encryptedOutput);
