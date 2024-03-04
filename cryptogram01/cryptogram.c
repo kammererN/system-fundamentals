@@ -35,12 +35,10 @@ int main ()
 	return 0;
 }
 
-
 void initialization()
 {
 	puzzle = getPuzzle();
 }
-
 
 void gameLoop()
 {
@@ -54,18 +52,16 @@ void gameLoop()
 	}
 }
 
-
 void tearDown()
 {
+	displayWorld();  // Display the puzzle one last time
 	printf(EXIT_PROMPT);
 }
-
 
 char *getPuzzle()
 {
 	return DEFAULT_PUZZLE;
 }
-
 
 char *acceptInput()
 {
@@ -75,7 +71,6 @@ char *acceptInput()
 	input[strcspn(input, "\n")] = 0;  // Remove "/n" if present
 	return input;
 }
-
 
 bool updateState(char *input)
 {

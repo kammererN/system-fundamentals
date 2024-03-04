@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // Author: Nicholas Kammerer
-// Date: 2024-02-25
+// Date: 2024-03-03
 /* 
  *   ICSI 333 Lab 05.
  *   Create a program that generates random number between 0 and 50 and puts 
