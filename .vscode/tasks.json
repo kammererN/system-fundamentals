@@ -1,0 +1,41 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Compile C code with GCC",
+            "type": "shell",
+            "command": "gcc",
+            "args": [
+                "-Wall", // Enables most warning messages
+                "-Wextra", // Enables extra warning messages
+                "-pedantic", // Issue all the warnings demanded by strict ISO C
+                "${file}", // The currently open file
+                "-o", // Specify output file name
+                "${fileDirname}/${fileBasenameNoExtension}" // Output file
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "label": "Run Compiled C Binary",
+            "type": "shell",
+            "command": "./${fileDirname}/${fileBasenameNoExtension}",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": []
+        },
+    ]
+}
