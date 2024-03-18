@@ -11,44 +11,43 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <fcntl.h>
 #include <unistd.h>
+#include <fcntl.h>
 #include <string.h>
 
-int main(void)
-{
-	int numbers[100]; // Array to hold 100 random numbers
-	int sum = 0; // Variable to hold the sum of the numbers
-	char filename[20]; // Array to hold the filename
-
-	srand(time(0)); // Init random number generator
-
-	// Generate 100 random ints from 0-99 and sum them
-	for (int i = 0; i < 100; i++) {
-		numbers[i] = rand() % 100; // Generate rand int 0-99
-		sum += numbers[i]; // Add number to sum
-	}
-
-	printf("Sum of numbers: %d\n", sum); // Print the sum
-
-	// Construct filename using the sum
-	sprintf(filename, "numbers.%d", sum);
-
-	// Open file for writing
-	int fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (fd == -1) {
-		perror("Error opening file");
-		return 1;
-	}
-
-	// Convert each number to a string and write to the file
-	for (int i = 0; i < 100; i++) {
-		char numStr[5]; // Buffer for number string
-		sprintf(numStr, "%d\n", numbers[i]); // Convert number to string
-		write(fd, numStr, strlen(numStr)); // Write string to file
-	}
-
-	close(fd); // Close the file
-
-	return 0; // End of program
+int main(void) {
+    srand(time(0)); // Initialize the random number generator
+    
+    int numbers[100];
+    int sum = 0;
+    
+    for (int i = 0; i < 100; i++) {
+        numbers[i] = rand() % 100; // Generate a random number between 0-99
+        sum += numbers[i];
+    }
+    
+    printf("Sum = %d\n", sum); // Print the sum
+    
+    // Create the filename
+    char filename[20];
+    sprintf(filename, "numbers.%d", sum);
+    
+    // Open the file for writing
+    int fd = open(filename, O_WRONLY | O_CREAT, 0666);
+    if (fd < 0) {
+        perror("Error opening file");
+        return 1;
+    }
+    
+    // Write the numbers to the file
+    for (int i = 0; i < 100; i++) {
+        char buffer[10];
+        int len = sprintf(buffer, "%d\n", numbers[i]);
+        write(fd, buffer, len);
+    }
+    
+    // Close the file
+    close(fd);
+    
+    return 0;
 }

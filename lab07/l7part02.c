@@ -11,55 +11,41 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
-#include <dirent.h> // For directory operations
+#include <dirent.h>
 #include <string.h>
-#include <fcntl.h>
-#include <unistd.h>
 
-// Prototypes
-void processFile(const char *filename);
-
-// Function to open, read, sum, print & close the file
-void processFile(const char *filename)
-{
-        int fd = open(filename, O_RDONLY);
-	if (fd == -1) {
-		perror("Error opening file");
-		return;
-	}
-
-	int sum = 0, number;
-	for (int i = 0; i < 100; i++) {
-		// Assuming each integer is stored in a newline-seperated format
-		if (read(fd, &number, sizeof(int)) > 0) {
-			sum += number;
-			printf("%s", sum);
-		}
-	}
-
-	printf("%s: Sum = %d\n", filename, sum); 
-
-	close(fd);
+void sum_and_print_file_contents(const char* filename) {
+    FILE *fp = fopen(filename, "r");
+    if (fp == NULL) {
+        perror("Error opening file");
+        return;
+    }
+    
+    int sum = 0, num;
+    while (fscanf(fp, "%d", &num) > 0) { // Read numbers as integers
+        sum += num;
+    }
+    
+    printf("%s: %d\n", filename, sum);
+    
+    fclose(fp);
 }
 
-int main(void)
-{
-	DIR *dir;
-	struct dirent *entry;
-
-	dir = opendir("."); // Open the current directory
-	if (dir == NULL) {
-		perror("opendir() error");
-		return 1;
-	}
-
-	while ((entry = readdir(dir)) != NULL) {
-		// Check if the filename matches the pattern "numbers."
-		if (strncmp(entry->d_name, "numbers.", 8) == 0) {
-			processFile(entry->d_name);
-		}
-	}
-	closedir(dir);
-	
-	return 0;
+int main(void) {
+    DIR* dir;
+    struct dirent* ent;
+    
+    if ((dir = opendir(".")) != NULL) {
+        while ((ent = readdir(dir)) != NULL) {
+            if (strncmp(ent->d_name, "numbers.", 8) == 0) {
+                sum_and_print_file_contents(ent->d_name);
+            }
+        }
+        closedir(dir);
+    } else {
+        perror("Could not open directory");
+        return EXIT_FAILURE;
+    }
+    
+    return EXIT_SUCCESS;
 }
