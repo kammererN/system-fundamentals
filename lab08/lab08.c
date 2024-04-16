@@ -25,4 +25,81 @@
  *    d. Create a function for the signal handler that should print “pong quitting” and
  *       exit().
  */
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <signal.h>
+#include <sys/wait.h>
+
+// Global pipe file descriptors
+int filedescriptor1[2]; // Used for ping to write & pong to read
+int filedescriptor2[2]; // Used for pong to write & ping to read
+
+void pingProcess();
+void pongProcess();
+void signalHandler(int signal);
+
+int main()
+{
+	pid_t pid1, pid2;
+
+	// Create the pipes
+	if (pipe(filedescriptor1) == -1 || pipe(filedescriptor2) == -1) {
+		perror("pipe");
+		exit(1);
+	}
+
+	// Fork the first child
+	pid1 = fork();
+	if (pid1 == 0) {
+		// Child
+		pingProcess();
+	} else {
+		pid2 = fork();
+		if (pid2 == 0) {
+			// Child
+			pongProcess();
+		}
+	}
+
+	// Parent waits for child to complete
+	wait(NULL);
+
+	// Send SIGUSR1 signal to pong
+	kill(pid2, SIGUSR1);
+
+	// Wait for second child to complete
+	wait(NULL);
+
+	return 0;
+}
  
+void pingProcess()
+{
+        int value = 0;
+	while (value <= 100) {
+		printf("ping - %d\n", value);
+		value++;
+		write(filedescriptor1[1], &value, sizeof(value)); // write pong
+		read(filedescriptor2[0], &value, sizeof(value)); // read pong
+	}
+	exit(0);
+ }
+
+void pongProcess()
+{
+        signal(SIGUSR1, signalHandler); // Setup signal handler
+	int value;
+	while (1) {
+		read(filedescriptor1[0], &value, sizeof(value)); // read ping
+		printf("pong-%d\n", value);
+		value++;
+		write(filedescriptor2[1], &value, sizeof(value)); // write ping
+	}
+}
+
+void signalHandler(int signal)
+{
+	printf("pong quitting\n");
+	exit(0);
+}
